@@ -1,0 +1,8 @@
+#IDE
+/.idea/vcs.xml
+/.idea/workspace.xml
+
+#Terraform
+.terraform/
+.terraform.*
+terraform.*
