@@ -1,0 +1,20 @@
+{
+  "name": "product-list-api",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prestart": "npm run build",
+    "start": "func start",
+    "test": "echo \"No tests yet...\"",
+    "deploy": "func azure functionapp publish fa-products-service-ne-os-001 --force"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@azure/functions": "^3.0.0",
+    "azure-functions-core-tools": "^4.x",
+    "@types/node": "18.x",
+    "typescript": "^4.0.0"
+  }
+}
