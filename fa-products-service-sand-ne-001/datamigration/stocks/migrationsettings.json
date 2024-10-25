@@ -1,0 +1,13 @@
+{
+  "Source": "json",
+  "SourceSettings": {
+    "FilePath": "C:\/Users\/Olena_Shynkarenko\/Documents\/Mentoring Programs\/My training\/Azure\/azure-gmp-products-api\/fa-products-service-sand-ne-001\/sample-data\/stocks.json"
+  },
+  "Sink": "cosmos-nosql",
+  "SinkSettings": {
+    "ConnectionString":"replace this with a valid connection string to execute migration operation",
+    "Database": "products-db",
+    "Container": "stocks",
+    "PartitionKeyPath": "/product_id"
+  }
+}
