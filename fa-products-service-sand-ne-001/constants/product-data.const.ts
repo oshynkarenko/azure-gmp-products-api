@@ -1,4 +1,4 @@
-import {Product} from '../http-get-product-list/dtos/product.dto';
+import {Product} from '../dtos/product.dto';
 
 export const PRODUCT_DATA: Array<Product> = [
   {

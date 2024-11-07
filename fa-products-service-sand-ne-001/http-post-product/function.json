@@ -5,9 +5,9 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "products/{id:guid}",
+      "route": "products",
       "methods": [
-        "get"
+        "post"
       ]
     },
     {
@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/http-get-product-by-id/index.js"
+  "scriptFile": "../dist/http-post-product/index.js"
 }

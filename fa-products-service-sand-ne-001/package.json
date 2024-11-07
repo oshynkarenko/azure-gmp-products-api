@@ -8,13 +8,18 @@
     "prestart": "npm run build",
     "start": "func start",
     "test": "echo \"No tests yet...\"",
-    "deploy": "func azure functionapp publish fa-products-service-ne-os-001 --force"
+    "deploy": "func azure functionapp publish fa-products-service-ne-os-001 --force",
+    "migrate:products": "cd datamigration/products && dmt",
+    "migrate:stocks": "cd datamigration/stocks && dmt"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@azure/cosmos": "^4.1.1",
+    "dotenv": "^16.4.5"
+  },
   "devDependencies": {
     "@azure/functions": "^3.0.0",
-    "azure-functions-core-tools": "^4.x",
     "@types/node": "18.x",
+    "azure-functions-core-tools": "^4.x",
     "typescript": "^4.0.0"
   }
 }
