@@ -55,6 +55,31 @@ resource "azurerm_application_insights" "products_service_fa" {
   resource_group_name = azurerm_resource_group.product_service_rg.name
 }
 
+resource "azurerm_servicebus_namespace" "sb" {
+  name                          = "service-bus-ne-os-001"
+  location                      = azurerm_resource_group.product_service_rg.location
+  resource_group_name           = azurerm_resource_group.product_service_rg.name
+  sku                           = "Basic"
+  capacity                      = 0
+  public_network_access_enabled = true
+  minimum_tls_version           = "1.2"
+  zone_redundant                = false
+}
+
+resource "azurerm_servicebus_queue" "sb_queue" {
+  name                                    = "service-bus-queue-ne-os-001"
+  namespace_id                            = azurerm_servicebus_namespace.sb.id
+  status                                  = "Active"
+  enable_partitioning                     = true
+  lock_duration                           = "PT1M"
+  max_size_in_megabytes                   = 1024
+  max_delivery_count                      = 10
+  requires_duplicate_detection            = false
+  duplicate_detection_history_time_window = "PT10M"
+  requires_session                        = false
+  dead_lettering_on_message_expiration    = false
+}
+
 resource "azurerm_windows_function_app" "products_service" {
   name     = "fa-products-service-ne-os-001"
   location = "northeurope"
@@ -90,13 +115,13 @@ resource "azurerm_windows_function_app" "products_service" {
   app_settings = {
     WEBSITE_CONTENTAZUREFILECONNECTIONSTRING = azurerm_storage_account.products_service_fa.primary_connection_string
     WEBSITE_CONTENTSHARE                     = azurerm_storage_share.products_service_fa.name
+    SB_CONNECTION_STRING                     = azurerm_servicebus_namespace.sb.default_primary_connection_string
   }
 
   # The app settings changes cause downtime on the Function App. e.g. with Azure Function App Slots
   # Therefore it is better to ignore those changes and manage app settings separately off the Terraform.
   lifecycle {
     ignore_changes = [
-      app_settings,
       site_config["application_stack"], // workaround for a bug when azure just "kills" your app
       tags["hidden-link: /app-insights-instrumentation-key"],
       tags["hidden-link: /app-insights-resource-id"],

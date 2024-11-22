@@ -15,7 +15,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     if (productData && stockData) {
       const { id, title, description, price, image } = productData.resource;
       const { count } = stockData.resources[0];
-      product = { id, title, description, price, image, stock: count };
+      product = { id, title, description, price, image, count };
       respBody = JSON.stringify(product);
     } else {
       respBody = JSON.stringify({ message: 'Not found' });

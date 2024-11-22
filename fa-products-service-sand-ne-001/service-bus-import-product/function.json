@@ -1,0 +1,12 @@
+{
+  "bindings": [
+    {
+      "name": "serviceBusQueueTrigger",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "service-bus-queue-ne-os-001",
+      "connection": "SB_CONNECTION_STRING"
+    }
+  ],
+  "scriptFile": "../dist/service-bus-import-product/index.js"
+}
