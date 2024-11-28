@@ -23,14 +23,14 @@ export const dataService = {
     dataService.getStockDataById(id),
   ]),
   createProduct: (product: Product, context): Promise<ItemDefinition> => {
-    const { title, description, price, image, stock } = product;
+    const { title, description, price, image, count } = product;
     const productData: Product = { title, description, price, image: DEFAULT_IMAGE };
 
     return dataService.createProductData(productData)
       .then((result: ItemDefinition): Promise<ItemDefinition> => {
       const stockData = {
         product_id: result.resource.id,
-        count: stock
+        count: count
       };
       return dataService.createStockData(stockData);
     });
